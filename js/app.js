@@ -9,12 +9,7 @@ let toggledCards = ["fa fa-diamond", "fa fa-paper-plane-o", "fa fa-leaf", "fa fa
    ];
 
 const deck = document.querySelector('.deck');
-let visibleIcon = [];
 let firstClick = true;
-let moves = [0];
-let matchCard = 0;
-let replayGame = 0;
-
 
 // Function to generate cards
    function generateCards(){

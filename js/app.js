@@ -35,15 +35,10 @@ let pairedCards = [];
        return array;
    }
 
-
-
-
 /* Conditions to ensure :
 * only 2 cards can be clicked at once
 * user can't click on an already matched card and try to rematch with current card
 */
-
-
 
 // Flipping Cards
 
@@ -71,6 +66,7 @@ for(let i = 0; i < toggledCards.length; i++){
 /*
 * Click Event
 */
+
 function click(card) {
 
   // Card Click Event
@@ -102,7 +98,8 @@ function click(card) {
 /*
 * MatchUp the 2 cards
 */
- function matchUp(presentCard, priorCard) {
+
+function matchUp(presentCard, priorCard) {
 
     // Pairer
     if(presentCard.innerHTML === priorCard.innerHTML) {
@@ -128,7 +125,7 @@ function click(card) {
         visibleCards = [];
       }, 500);
 
-    }
+}
 
     // Add New Move
     addMove();
@@ -178,35 +175,31 @@ function rating() {
 */
 
 let clock = 0;
+let totalSeconds = 0;
 let clockSeconds = 0;
 let clockMinutes = 0;
 let clockRunning = false;
 
-function updateClock() {
-
-  if (clockSeconds < 10){
-      clockSeconds = `0${clockSeconds}`
-  }
-
-  if (clockMinutes >= 60) {
-    clockMinutes++;
-    clockSeconds = '00';
-  }
-
-  const gameClock = document.querySelector('.timer')
-
-  gameClock.innerHTML = clockMinutes + ':' + clockSeconds;
+function beginClock() {
+    clock = setInterval(updateClock, 1000);
 }
 
-function beginClock() {
-  if (clockRunning == false) {
-    clock = setInterval(updateClock, 1000);
-    clockRunning = true;
+function updateClock() {
+  const gameClock = document.querySelector('.timer')
+  if (clockSeconds < 10){
+      gameClock.innerHTML = `${clockMinutes}:0${clockSeconds}`;
+  } else {
+    gameClock.innerHTML = `${clockMinutes}:${clockSeconds}`;
   }
+    totalSeconds += 1;
+    if (totalSeconds % 60 === 0) {
+        clockMinutes += 1;
+  }
+    clockSeconds = totalSeconds - clockMinutes * 60;
 }
 
 function endClock() {
-  clearInterval(timer);
+  clearInterval(clock);
   clockSeconds = 0;
   clockMinutes = 0;
   clockRunning = false;
@@ -220,6 +213,8 @@ const gameClock = document.querySelector('.timer');
 
 const restartBtn = document.querySelector(".restart");
 restartBtn.addEventListener("click", function() {
+    shuffle(toggledCards);
+
     // Delete all cards
     cardsContainer.innerHTML = "";
 
@@ -232,7 +227,12 @@ restartBtn.addEventListener("click", function() {
     movesContainer.innerHTML = moves;
 
     // Reset Game Clock
-    gameClock.innerHTML = "";
+    endClock();
+    firstClick = true;
+    totalSeconds = 0;
+    clockMinutes=0;
+    clockSeconds=0;
+    gameClock.textContent = `${clockMinutes}:0${clockSeconds}`;
 
 });
 
@@ -250,3 +250,8 @@ clickTarget();
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
+
+ if (clockRunning == true) {
+   clock = setInterval(updateClock, 1000);
+   clockRunning = false;
+ }

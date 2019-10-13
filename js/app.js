@@ -160,10 +160,10 @@ starsContainer.innerHTML = `<li><i class="fa fa-star"></i></li>
 <li><i class="fa fa-star"></i></li>`;
 function rating() {
 
-  if(moves > 18) {
+  if(moves > 14) {
     starsContainer.innerHTML = `<li><i class="fa fa-star"></i></li>
     <li><i class="fa fa-star"></i></li>`;
-  } else if(18 > moves > 26) {
+  } else if(14 > moves > 22) {
     starsContainer.innerHTML = `<li><i class="fa fa-star"></i></li>`;
   }
 }
@@ -180,7 +180,9 @@ let clockRunning = false;
 const gameClock = document.querySelector('.timer');
 
 function beginClock() {
-    clock = setInterval(updateClock, 1000);
+  if (moves == 0) {
+    clock = setInterval(updateClock, 1500);
+  }
 }
 
 function updateClock() {
@@ -197,7 +199,7 @@ function updateClock() {
 }
 
 function endClock() {
-  clearInterval(clock);
+  clearInterval(gameClock);
 }
 
 /*

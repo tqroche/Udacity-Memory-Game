@@ -129,7 +129,6 @@ function matchUp(presentCard, priorCard) {
 
     // Add New Move
     addMove();
-
  }
 
 
@@ -142,7 +141,6 @@ function gameFinished() {
     alert("GAME OVER!");
   }
 }
-
 
 // Moves & Stars
 const movesContainer = document.querySelector(".moves");
@@ -162,10 +160,10 @@ starsContainer.innerHTML = `<li><i class="fa fa-star"></i></li>
 <li><i class="fa fa-star"></i></li>`;
 function rating() {
 
-  if(12 < moves < 18) {
+  if(moves > 18) {
     starsContainer.innerHTML = `<li><i class="fa fa-star"></i></li>
     <li><i class="fa fa-star"></i></li>`;
-  } else if(moves > 18) {
+  } else if(18 > moves > 26) {
     starsContainer.innerHTML = `<li><i class="fa fa-star"></i></li>`;
   }
 }
@@ -179,19 +177,19 @@ let totalSeconds = 0;
 let clockSeconds = 0;
 let clockMinutes = 0;
 let clockRunning = false;
+const gameClock = document.querySelector('.timer');
 
 function beginClock() {
     clock = setInterval(updateClock, 1000);
 }
 
 function updateClock() {
-  const gameClock = document.querySelector('.timer')
   if (clockSeconds < 10){
       gameClock.innerHTML = `${clockMinutes}:0${clockSeconds}`;
   } else {
     gameClock.innerHTML = `${clockMinutes}:${clockSeconds}`;
   }
-    totalSeconds += 1;
+    totalSeconds ++;
     if (totalSeconds % 60 === 0) {
         clockMinutes += 1;
   }
@@ -200,16 +198,11 @@ function updateClock() {
 
 function endClock() {
   clearInterval(clock);
-  clockSeconds = 0;
-  clockMinutes = 0;
-  clockRunning = false;
 }
 
 /*
 * Restart Game
 */
-
-const gameClock = document.querySelector('.timer');
 
 const restartBtn = document.querySelector(".restart");
 restartBtn.addEventListener("click", function() {
@@ -236,6 +229,39 @@ restartBtn.addEventListener("click", function() {
 
 });
 
+function gameOver(){
+    matchCard += 1;
+    if(matchCard=== 8){
+        endClock();
+        modalValues();
+        displayModal();
+    }
+}
+
+// Shows the modal after game won
+const callModal= document.querySelector('.modal');
+
+// Function to show modal
+function displayModal() {
+    callModal.style.display='block';
+}
+
+// close the modal box
+function closeModal() {
+    callModal.style.display='none';
+}
+
+//function to get current moves,stars and time and update to modal box
+function modalValues(){
+    const callModalTime = document.querySelector('.modal-time');
+    const callModalMoves = document.querySelector('.modal-moves');
+    const callModalStar = document.querySelector('.modal-rating') ;
+
+    // sets value to timervalue declared earlier
+    callModalTime.textContent= ` You completed the game in ${gameClock.textContent}s`;
+    callModalMoves.textContent= ` Your moves: ${moves}`;
+    callModalStar.innerHTML= ` With a star rating of: ${starsContainer.innerHTML}`;
+}
 
 ////////// Start game for first timeout
 clickTarget();

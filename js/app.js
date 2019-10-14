@@ -11,6 +11,7 @@ let toggledCards = ["fa fa-diamond", "fa fa-paper-plane-o", "fa fa-leaf",
 
 
 let pairedCards = [];
+let firstClick = true;
 
 /*
 * Display the cards on the page
@@ -71,10 +72,17 @@ function click(card) {
 
   // Card Click Event
   card.addEventListener("click", function() {
+    if(firstClick) {
+        // Start our timer
+        beginClock();
+        // Change our First Click indicator's value
+        firstClick = false;
+    }
+
 
     const presentCard = this;
     const priorCard = visibleCards[0];
-    beginClock();
+
 
     // we have an existing OPENED card
     if (visibleCards.length === 1) {
@@ -158,12 +166,15 @@ const starsContainer = document.querySelector(".stars");
 starsContainer.innerHTML = `<li><i class="fa fa-star"></i></li>
 <li><i class="fa fa-star"></i></li>
 <li><i class="fa fa-star"></i></li>`;
-function rating() {
 
-  if(moves > 14) {
+function rating() {
+  if(moves < 14) {
+    starsContainer.innerHTML = `<li><i class="fa fa-star"></i></li>
+    <li><i class="fa fa-star"></i></li> <li><i class="fa fa-star"></i></li>`;
+  } else  if(moves < 19) {
     starsContainer.innerHTML = `<li><i class="fa fa-star"></i></li>
     <li><i class="fa fa-star"></i></li>`;
-  } else if(14 > moves > 22) {
+  } else {
     starsContainer.innerHTML = `<li><i class="fa fa-star"></i></li>`;
   }
 }
@@ -181,7 +192,7 @@ const gameClock = document.querySelector('.timer');
 
 function beginClock() {
   if (moves == 0) {
-    clock = setInterval(updateClock, 1500);
+    clock = setInterval(updateClock, 1000);
   }
 }
 
@@ -202,6 +213,7 @@ function endClock() {
   clearInterval(gameClock);
 }
 
+
 /*
 * Restart Game
 */
@@ -221,7 +233,13 @@ restartBtn.addEventListener("click", function() {
     moves = 0;
     movesContainer.innerHTML = moves;
 
-    // Reset Game Clock
+    // reset stars
+    starsContainer.innerHTML = `<li><i class="fa fa-star"></i></li>
+    <li><i class="fa fa-star"></i></li>
+    <li><i class="fa fa-star"></i></li>`;
+
+
+// Reset Game Clock
     endClock();
     firstClick = true;
     totalSeconds = 0;
@@ -229,7 +247,7 @@ restartBtn.addEventListener("click", function() {
     clockSeconds=0;
     gameClock.textContent = `${clockMinutes}:0${clockSeconds}`;
 
-});
+    });
 
 function gameOver(){
     matchCard += 1;

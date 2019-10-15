@@ -145,7 +145,7 @@ function matchUp(presentCard, priorCard) {
 */
 
 function gameFinished() {
-  if(pairedCards.length === toggledCards.length){
+  if(pairedCards.length === toggledCards.length) {
     alert("GAME OVER!");
   }
 }

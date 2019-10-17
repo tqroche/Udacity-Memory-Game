@@ -256,6 +256,8 @@ function gameOver(){
         modalValues();
         displayModal();
     }
+    modal.classList.remove('showed');
+    modal.classList.add('hide');
 }
 
 // Shows the modal after game won

@@ -245,7 +245,7 @@ restartBtn.addEventListener("click", function() {
     totalSeconds = 0;
     clockMinutes=0;
     clockSeconds=0;
-    gameClock.textContent = `${clockMinutes}:0${clockSeconds}`;
+    gameClock.innerHTML = `${clockMinutes}:0${clockSeconds}`;
 
     });
 
@@ -253,36 +253,27 @@ function gameOver(){
     matchCard += 1;
     if(matchCard=== 8){
         endClock();
-        modalValues();
-        displayModal();
     }
-    modal.classList.remove('showed');
-    modal.classList.add('hide');
 }
 
 // Shows the modal after game won
-const callModal= document.querySelector('.modal');
 
-// Function to show modal
-function displayModal() {
-    callModal.style.display='block';
+let modal = [];
+
+function toggleModal() {
+  const modal= document.querySelector('.modal');
+  modal.classList.toggle ("hidden");
+  modal.classList.toggle ("show");
+
+  time.innerHTML= ` You completed the game in ${gameClock.innerHTML}s`;
+  moves.innerHTML= ` Your moves: ${movesContainer.innerHTML}`;
+  stars.innerHTML= ` With a star rating of: ${starsContainer.innerHTML}`;
 }
 
-// close the modal box
-function closeModal() {
-    callModal.style.display='none';
-}
-
-//function to get current moves,stars and time and update to modal box
-function modalValues(){
-    const callModalTime = document.querySelector('.modal-time');
-    const callModalMoves = document.querySelector('.modal-moves');
-    const callModalStar = document.querySelector('.modal-rating') ;
-
-    // sets value to timervalue declared earlier
-    callModalTime.textContent= ` You completed the game in ${gameClock.textContent}s`;
-    callModalMoves.textContent= ` Your moves: ${moves}`;
-    callModalStar.innerHTML= ` With a star rating of: ${starsContainer.innerHTML}`;
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
 }
 
 ////////// Start game for first timeout

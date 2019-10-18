@@ -144,11 +144,17 @@ function matchUp(presentCard, priorCard) {
 * Check if game is finished
 */
 
+let modalValues = [];
+
 function gameFinished() {
   if(pairedCards.length === toggledCards.length) {
     displayModal();
+    endClock();
+    modalValues();
+    rating();
   }
 }
+
 
 // Moves & Stars
 const movesContainer = document.querySelector(".moves");
@@ -249,24 +255,20 @@ restartBtn.addEventListener("click", function() {
 
     });
 
-function gameOver(){
-    matchCard += 1;
-    if(matchCard=== 8){
-        endClock();
-        displayModal();
-    }
-}
+
+const modal= document.querySelector(".modal");
 
 
 // Shows the modal after game won
 function displayModal() {
-  const modal= document.querySelector('.modal');
-  modal.classList.toggle ("show");
-
-  gameClock.innerHTML= ` You completed the game in ${gameClock.innerHTML}s`;
+  modal.classList.toggle("show");
+  modal.classList.toggle("hidden");
+  modal.style.display = "block";
+  gameClock.innerHTML= ` You completed the game in ${gameClock.innerHTML}`;
   moves.innerHTML= ` Your moves: ${movesContainer.innerHTML}`;
   starsContainer.innerHTML= ` With a star rating of: ${starsContainer.innerHTML}`;
 }
+
 
 
 ////////// Start game for first timeout

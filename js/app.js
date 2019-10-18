@@ -146,9 +146,7 @@ function matchUp(presentCard, priorCard) {
 
 function gameFinished() {
   if(pairedCards.length === toggledCards.length) {
-    alert(`You completed the game in ${gameClock.innerHTML}
-      Your moves: ${movesContainer.innerHTML}
-      With a star rating of: ${starsContainer.innerHTML}`);
+    alert("GAME OVER!");
   }
 }
 
@@ -165,16 +163,19 @@ function addMove() {
 }
 
 const starsContainer = document.querySelector(".stars");
-const star = `<li><i class="fa fa-star"></i></li>`;
-starsContainer.innerHTML = star+ star+ star;
+starsContainer.innerHTML = `<li><i class="fa fa-star"></i></li>
+<li><i class="fa fa-star"></i></li>
+<li><i class="fa fa-star"></i></li>`;
 
 function rating() {
-  if(moves < 16) {
-    starsContainer.innerHTML = star+ star+ star;
-  } else  if(moves < 21) {
-    starsContainer.innerHTML = star+ star;
+  if(moves < 14) {
+    starsContainer.innerHTML = `<li><i class="fa fa-star"></i></li>
+    <li><i class="fa fa-star"></i></li> <li><i class="fa fa-star"></i></li>`;
+  } else  if(moves < 19) {
+    starsContainer.innerHTML = `<li><i class="fa fa-star"></i></li>
+    <li><i class="fa fa-star"></i></li>`;
   } else {
-    starsContainer.innerHTML = star;
+    starsContainer.innerHTML = `<li><i class="fa fa-star"></i></li>`;
   }
 }
 
@@ -233,7 +234,9 @@ restartBtn.addEventListener("click", function() {
     movesContainer.innerHTML = moves;
 
     // reset stars
-    starsContainer.innerHTML = star+ star+ star;
+    starsContainer.innerHTML = `<li><i class="fa fa-star"></i></li>
+    <li><i class="fa fa-star"></i></li>
+    <li><i class="fa fa-star"></i></li>`;
 
 
 // Reset Game Clock
@@ -263,9 +266,9 @@ function toggleModal() {
   modal.classList.toggle ("hidden");
   modal.classList.toggle ("show");
 
-  clock.innerHTML= ` You completed the game in ${gameClock.innerHTML}`
-  moves.innerHTML= ` Your moves: ${movesContainer.innerHTML}`
-  starsContainer.innerHTML= ` With a star rating of: ${starsContainer.innerHTML}`
+  clock.innerHTML= ` You completed the game in ${gameClock.innerHTML}s`;
+  moves.innerHTML= ` Your moves: ${movesContainer.innerHTML}`;
+  starsContainer.innerHTML= ` With a star rating of: ${starsContainer.innerHTML}`;
 }
 
 

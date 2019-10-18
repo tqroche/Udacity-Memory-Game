@@ -146,7 +146,9 @@ function matchUp(presentCard, priorCard) {
 
 function gameFinished() {
   if(pairedCards.length === toggledCards.length) {
-    alert("GAME OVER!");
+    alert(`You completed the game in ${gameClock.innerHTML}
+      Your moves: ${movesContainer.innerHTML}
+      With a star rating of: ${starsContainer.innerHTML}`);
   }
 }
 
@@ -163,19 +165,16 @@ function addMove() {
 }
 
 const starsContainer = document.querySelector(".stars");
-starsContainer.innerHTML = `<li><i class="fa fa-star"></i></li>
-<li><i class="fa fa-star"></i></li>
-<li><i class="fa fa-star"></i></li>`;
+const star = `<li><i class="fa fa-star"></i></li>`;
+starsContainer.innerHTML = star+ star+ star;
 
 function rating() {
-  if(moves < 14) {
-    starsContainer.innerHTML = `<li><i class="fa fa-star"></i></li>
-    <li><i class="fa fa-star"></i></li> <li><i class="fa fa-star"></i></li>`;
-  } else  if(moves < 19) {
-    starsContainer.innerHTML = `<li><i class="fa fa-star"></i></li>
-    <li><i class="fa fa-star"></i></li>`;
+  if(moves < 16) {
+    starsContainer.innerHTML = star+ star+ star;
+  } else  if(moves < 21) {
+    starsContainer.innerHTML = star+ star;
   } else {
-    starsContainer.innerHTML = `<li><i class="fa fa-star"></i></li>`;
+    starsContainer.innerHTML = star;
   }
 }
 
@@ -234,9 +233,7 @@ restartBtn.addEventListener("click", function() {
     movesContainer.innerHTML = moves;
 
     // reset stars
-    starsContainer.innerHTML = `<li><i class="fa fa-star"></i></li>
-    <li><i class="fa fa-star"></i></li>
-    <li><i class="fa fa-star"></i></li>`;
+    starsContainer.innerHTML = star+ star+ star;
 
 
 // Reset Game Clock
@@ -245,7 +242,7 @@ restartBtn.addEventListener("click", function() {
     totalSeconds = 0;
     clockMinutes=0;
     clockSeconds=0;
-    gameClock.innerHTML = `${clockMinutes}:0${clockSeconds}`;
+    gameClock.textContent = `${clockMinutes}:0${clockSeconds}`;
 
     });
 
@@ -253,28 +250,24 @@ function gameOver(){
     matchCard += 1;
     if(matchCard=== 8){
         endClock();
+        modalValues();
+        displayModal();
     }
 }
 
-// Shows the modal after game won
-
 let modal = [];
 
+// Shows the modal after game won
 function toggleModal() {
   const modal= document.querySelector('.modal');
   modal.classList.toggle ("hidden");
   modal.classList.toggle ("show");
 
-  time.innerHTML= ` You completed the game in ${gameClock.innerHTML}s`;
-  moves.innerHTML= ` Your moves: ${movesContainer.innerHTML}`;
-  stars.innerHTML= ` With a star rating of: ${starsContainer.innerHTML}`;
+  clock.innerHTML= ` You completed the game in ${gameClock.innerHTML}`
+  moves.innerHTML= ` Your moves: ${movesContainer.innerHTML}`
+  starsContainer.innerHTML= ` With a star rating of: ${starsContainer.innerHTML}`
 }
 
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
-}
 
 ////////// Start game for first timeout
 clickTarget();

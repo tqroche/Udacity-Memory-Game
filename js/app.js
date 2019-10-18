@@ -147,6 +147,7 @@ function matchUp(presentCard, priorCard) {
 function gameFinished() {
   if(pairedCards.length === toggledCards.length) {
     alert("GAME OVER!");
+    displayModal();
   }
 }
 
@@ -254,14 +255,12 @@ function gameOver(){
     if(matchCard=== 8){
         endClock();
         modalValues();
-        displayModal();
     }
 }
 
-let modal = [];
 
 // Shows the modal after game won
-function toggleModal() {
+function displayModal() {
   const modal= document.querySelector('.modal');
   modal.classList.toggle ("hidden");
   modal.classList.toggle ("show");

@@ -146,7 +146,6 @@ function matchUp(presentCard, priorCard) {
 
 function gameFinished() {
   if(pairedCards.length === toggledCards.length) {
-    alert("GAME OVER!");
     displayModal();
   }
 }
@@ -169,10 +168,10 @@ starsContainer.innerHTML = `<li><i class="fa fa-star"></i></li>
 <li><i class="fa fa-star"></i></li>`;
 
 function rating() {
-  if(moves < 14) {
+  if(moves < 16) {
     starsContainer.innerHTML = `<li><i class="fa fa-star"></i></li>
     <li><i class="fa fa-star"></i></li> <li><i class="fa fa-star"></i></li>`;
-  } else  if(moves < 19) {
+  } else  if(moves < 21) {
     starsContainer.innerHTML = `<li><i class="fa fa-star"></i></li>
     <li><i class="fa fa-star"></i></li>`;
   } else {
@@ -254,7 +253,7 @@ function gameOver(){
     matchCard += 1;
     if(matchCard=== 8){
         endClock();
-        modalValues();
+        displayModal();
     }
 }
 
@@ -262,10 +261,9 @@ function gameOver(){
 // Shows the modal after game won
 function displayModal() {
   const modal= document.querySelector('.modal');
-  modal.classList.toggle ("hidden");
   modal.classList.toggle ("show");
 
-  clock.innerHTML= ` You completed the game in ${gameClock.innerHTML}s`;
+  gameClock.innerHTML= ` You completed the game in ${gameClock.innerHTML}s`;
   moves.innerHTML= ` Your moves: ${movesContainer.innerHTML}`;
   starsContainer.innerHTML= ` With a star rating of: ${starsContainer.innerHTML}`;
 }

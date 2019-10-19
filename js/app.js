@@ -144,14 +144,11 @@ function matchUp(presentCard, priorCard) {
 * Check if game is finished
 */
 
-let modalValues = [];
-
 function gameFinished() {
   if(pairedCards.length === toggledCards.length) {
     displayModal();
     endClock();
     modalValues();
-    rating();
   }
 }
 
@@ -183,6 +180,17 @@ function rating() {
   } else {
     starsContainer.innerHTML = `<li><i class="fa fa-star"></i></li>`;
   }
+}
+
+function getStars() {
+    stars = document.querySelectorAll('.stars li');
+    starCount = 0;
+    for (star of stars) {
+        if (star.style.display !== 'none') {
+            starCount++;
+        }
+    }
+    return starCount;
 }
 
 /*
@@ -256,19 +264,24 @@ restartBtn.addEventListener("click", function() {
     });
 
 
-const modal= document.querySelector(".modal");
-
 
 // Shows the modal after game won
 function displayModal() {
+  const modal= document.querySelector('.modal');
   modal.classList.toggle("show");
-  modal.classList.toggle("hidden");
   modal.style.display = "block";
-  gameClock.innerHTML= ` You completed the game in ${gameClock.innerHTML}`;
-  moves.innerHTML= ` Your moves: ${movesContainer.innerHTML}`;
-  starsContainer.innerHTML= ` With a star rating of: ${starsContainer.innerHTML}`;
 }
 
+function modalValues() {
+  const gameClock = document.querySelector('.timer');
+  const moves = document.querySelector('.moves');
+  const starsContainer = document.querySelector('.stars');
+  const stars = getStars();
+
+  gameClock.innerHTML= ` You completed the game in ${gameClock}`;
+  moves.innerHTML= ` Your moves: ${movesContainer}`;
+  starsContainer.innerHTML= ` With a star rating of: ${starsContainer}`;
+}
 
 
 ////////// Start game for first timeout

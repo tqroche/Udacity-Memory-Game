@@ -123,21 +123,22 @@ function matchUp(presentCard, priorCard) {
       // If Game is Completed
       gameFinished();
     } else {
+      console.log("Keeps going")
 
       visibleCards[0];
 
       // wait 500ms then do this!
       setTimeout(function() {
+        console.log("Trigger not win")
         presentCard.classList.remove("show", "open", "disable");
         priorCard.classList.remove("show", "open", "disable");
         visibleCards = [];
       }, 500);
-
+      console.log("Add move")
+      addMove();
+    }
 }
 
-    // Add New Move
-    addMove();
- }
 
 
 /*
@@ -264,12 +265,14 @@ restartBtn.addEventListener("click", function() {
     });
 
 
-
 // Shows the modal after game won
 function displayModal() {
+  console.log("display modal triggered")
   const modal= document.querySelector('.modal');
-  modal.classList.toggle("show");
-  modal.style.display = "block";
+  document.getElementById('modal').style.display = "block";
+  document.getElementById('modal').style.display = "show";
+  document.getElementById('modal').style.display = "hidden";
+
 }
 
 function modalValues() {
@@ -278,9 +281,9 @@ function modalValues() {
   const starsContainer = document.querySelector('.stars');
   const stars = getStars();
 
-  gameClock.innerHTML= ` You completed the game in ${gameClock}`;
-  moves.innerHTML= ` Your moves: ${movesContainer}`;
-  starsContainer.innerHTML= ` With a star rating of: ${starsContainer}`;
+  gameClock.innerHTML= ` You completed the game in ${gameClock.innerHTML}`;
+  moves.innerHTML= ` Your moves: ${movesContainer.innerHTML}`;
+  starsContainer.innerHTML= ` With a star rating of: ${starsContainer.innerHTML}`;
 }
 
 

@@ -119,22 +119,21 @@ function matchUp(presentCard, priorCard) {
       pairedCards.push(presentCard, priorCard);
 
       visibleCards = [];
+      addMove();
+
 
       // If Game is Completed
       gameFinished();
     } else {
-      console.log("Keeps going")
 
       visibleCards[0];
 
       // wait 500ms then do this!
       setTimeout(function() {
-        console.log("Trigger not win")
         presentCard.classList.remove("show", "open", "disable");
         priorCard.classList.remove("show", "open", "disable");
         visibleCards = [];
       }, 500);
-      console.log("Add move")
       addMove();
     }
 }
@@ -276,24 +275,22 @@ function displayModal() {
   console.log("display modal triggered")
   modal.classList.add("modal");
   modal.classList.remove("hide");
-  //modal.style.display = "block";
-  // modal.style.display = "show";
-  // modal.style.display = "hidden";
-  // modal.style.display = "modal-content";
 }
 function hideModal() {
   modal.classList.add("hide");
 }
 
 function modalValues() {
-  const gameClock = document.querySelector('.timer');
-  const moves = document.querySelector('.moves');
-  const starsContainer = document.querySelector('.stars');
-  const stars = getStars();
+  let timeMessage = `Congratulations! You completed the game in ${gameClock.innerHTML}`;
+  let ratingMessage = `with a rating of ${getStars()} star(s)`;
+  let movesMessage = `and a total of ${moves} moves`;
 
-  gameClock.innerHTML= ` You completed the game in ${gameClock.innerHTML}`;
-  moves.innerHTML= ` Your moves: ${movesContainer.innerHTML}`;
-  starsContainer.innerHTML= ` With a star rating of: ${starsContainer.innerHTML}`;
+  const modalTime = document.querySelector('.modal-time');
+  const modalRating = document.querySelector('.modal-rating');
+  const modalMoves = document.querySelector('.modal-moves');
+  modalTime.innerHTML = timeMessage;
+  modalRating.innerHTML = ratingMessage;
+  modalMoves.innerHTML = movesMessage;
 }
 
 

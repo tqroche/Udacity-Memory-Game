@@ -87,7 +87,7 @@ function click(card) {
     // we have an existing OPENED card
     if (visibleCards.length === 1) {
 
-      card.classList.add("show", "open");
+      card.classList.add("show", "open", "disable");
       visibleCards.push(this);
 
       // we should compare our 2 visible cards!
@@ -96,7 +96,7 @@ function click(card) {
 
     } else {
     // we don't have any visible cards
-      card.classList.add("show", "open");
+      card.classList.add("show", "open", "disable");
       visibleCards.push(this);
     }
 

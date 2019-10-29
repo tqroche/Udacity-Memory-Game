@@ -53,11 +53,11 @@ let visibleCards = [];
 */
 
 function clickTarget() {
-for(let i = 0; i < toggledCards.length; i++){
-  const card = document.createElement("li");
-  card.classList.add("card");
-  card.innerHTML = `<i class="${toggledCards[i]}"></i>`
-  cardsContainer.appendChild(card);
+  for(let i = 0; i < toggledCards.length; i++){
+    const card = document.createElement("li");
+    card.classList.add("card");
+    card.innerHTML = `<i class="${toggledCards[i]}"></i>`
+    cardsContainer.appendChild(card);
 
     // Add Click Event to Each Card
     click(card);
@@ -225,7 +225,7 @@ function updateClock() {
 }
 
 function endClock() {
-  clearInterval(gameClock);
+  clearInterval(clock);
 }
 
 
@@ -234,8 +234,13 @@ function endClock() {
 */
 
 const restartBtn = document.querySelector(".restart");
-restartBtn.addEventListener("click", function() {
+const modalRestartBtn = document.querySelector(".modal-restart");
+restartBtn.addEventListener("click", onRestart);
+modalRestartBtn.addEventListener("click", onRestart);
+function onRestart() {
     shuffle(toggledCards);
+
+    hideModal();
 
     // Delete all cards
     cardsContainer.innerHTML = "";
@@ -254,7 +259,7 @@ restartBtn.addEventListener("click", function() {
     <li><i class="fa fa-star"></i></li>`;
 
 
-// Reset Game Clock
+  // Reset Game Clock
     endClock();
     firstClick = true;
     totalSeconds = 0;
@@ -262,17 +267,22 @@ restartBtn.addEventListener("click", function() {
     clockSeconds=0;
     gameClock.textContent = `${clockMinutes}:0${clockSeconds}`;
 
-    });
-
+  }
 
 // Shows the modal after game won
+let modal = document.getElementById("modal");
+
 function displayModal() {
   console.log("display modal triggered")
-  const modal= document.querySelector('.modal');
-  document.getElementById('modal').style.display = "block";
-  document.getElementById('modal').style.display = "show";
-  document.getElementById('modal').style.display = "hidden";
-
+  modal.classList.add("modal");
+  modal.classList.remove("hide");
+  //modal.style.display = "block";
+  // modal.style.display = "show";
+  // modal.style.display = "hidden";
+  // modal.style.display = "modal-content";
+}
+function hideModal() {
+  modal.classList.add("hide");
 }
 
 function modalValues() {
